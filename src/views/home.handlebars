@@ -1,0 +1,51 @@
+<h1>Lista de productos</h1>
+
+<form method="GET" action="/products">
+  <input type="text" name="query" placeholder="Buscar por categoría o disponibilidad" value="{{query}}" />
+
+  <select name="sort">
+    <option value="asc" {{#if (eq sort "asc")}}selected{{/if}}>Ascendente</option>
+    <option value="desc" {{#if (eq sort "desc")}}selected{{/if}}>Descendente</option>
+  </select>
+
+  <input type="number" name="limit" placeholder="Límite por página" value="{{limit}}" min="1" step="1" />
+
+  <button type="submit">Filtrar</button>
+</form>
+
+
+<ul>
+  {{#each products}}
+    <li>
+      <strong>Título:</strong> {{this.title}} <br>
+      <strong>Descripción:</strong> {{this.description}} <br>
+      <strong>Precio:</strong> ${{this.price}} <br>
+      <strong>Categoría:</strong> {{this.category}} <br>
+      <strong>Stock:</strong> {{this.stock}} <br>
+
+      <a href="/products/{{this._id}}">Ver más</a>
+
+      <form action="/api/carts/{{../cartId}}/products/{{this._id}}" method="POST">
+        <button type="submit">Agregar al carrito</button>
+      </form>
+
+      <hr>
+    </li>
+  {{/each}}
+</ul>
+
+<div>
+  {{#if hasPrevPage}}
+    <a href="?page={{prevPage}}&limit={{limit}}&sort={{sort}}&query={{query}}">⬅ Anterior</a>
+  {{/if}}
+
+  {{#if page}}
+    <span>Página {{page}} de {{totalPages}}</span>
+  {{else}}
+    <span>Página 0 de 0</span>
+  {{/if}}
+
+  {{#if hasNextPage}}
+    <a href="?page={{nextPage}}&limit={{limit}}&sort={{sort}}&query={{query}}">Siguiente ➡</a>
+  {{/if}}
+</div>

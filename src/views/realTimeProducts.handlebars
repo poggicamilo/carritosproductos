@@ -1,0 +1,16 @@
+<h1>Lista de productos en tiempo real</h1>
+<ul id="productList"></ul>
+
+<form id="addProductForm">
+  <input type="text" name="title" placeholder="Título" required />
+  <input type="text" name="description" placeholder="Descripción" required />
+  <input type="text" name="code" placeholder="Código" required />
+  <input type="number" name="price" placeholder="Precio" required />
+  <input type="number" name="stock" placeholder="Stock" required />
+  <input type="text" name="category" placeholder="Categoría" required />
+  <button type="submit">Agregar producto</button>
+</form>
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/realtime.js"></script>

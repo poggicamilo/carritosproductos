@@ -1,0 +1,33 @@
+<h1>Carrito</h1>
+
+{{#if cart.products.length}}
+  <ul>
+    {{#each cart.products}}
+      <li>
+        <strong>Producto:</strong> {{title}} <br>
+        <strong>Precio:</strong> ${{price}} <br>
+        <strong>Cantidad:</strong> {{quantity}} <br>
+        <strong>Subtotal:</strong> ${{subtotal}} <br>
+
+        <form action="/api/carts/{{../cart._id}}/products/{{_id}}" method="POST" data-method="PUT">
+          <input type="number" name="quantity" value="{{quantity}}" min="1" required />
+          <button type="submit">Actualizar cantidad</button>
+        </form>
+
+        <form action="/api/carts/{{../cart._id}}/products/{{_id}}" method="POST" data-method="DELETE">
+          <button type="submit">Eliminar producto</button>
+        </form>
+
+        <hr>
+      </li>
+    {{/each}}
+  </ul>
+
+  <form action="/api/carts/{{cart._id}}" method="POST" data-method="DELETE">
+    <button type="submit">Vaciar carrito</button>
+  </form>
+{{else}}
+  <p>El carrito está vacío.</p>
+{{/if}}
+
+<a href="/products">⬅ Volver a productos</a>

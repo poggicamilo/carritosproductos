@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mi App</title>
+</head>
+<body>
+  {{{body}}} 
+
+ 
+  <script>
+    document.addEventListener('submit', async (e) => {
+      const form = e.target;
+      const method = form.dataset.method;
+
+      if (method === 'PUT' || method === 'DELETE') {
+        e.preventDefault();
+
+        const response = await fetch(form.action, {
+          method: method,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            quantity: form.quantity ? Number(form.quantity.value) : undefined
+          }),
+        });
+
+        if (response.ok) {
+          location.reload();
+        } else {
+          alert('Error al procesar el formulario');
+        }
+      }
+    });
+  </script>
+</body>
+</html>
